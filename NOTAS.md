@@ -28,6 +28,8 @@ trim_trailing_whitespace = false
 
 <!-- Procedimiento para corregir error de Puerto en uso 
 si se llega a desconectar mal el servidor -->
+EL SERVIDOR SE DETIENE CON CTRL+C de manera correcta
+
 Check the PID i.e. id of process running on port 3000 with below command :
 
 lsof -i tcp:3000
@@ -92,7 +94,7 @@ export class AppController {
 <!-- Crear controladores con el cli en la terminal -->
 nest generate controller controllers/products --flat
 <!-- o en la forma compacta: -->
-nest g co controllers/categories --flat
+nest g co controllers/brands --flat
 
 
 <!-- Al tener cada controlador únicamente con sus propios métodos, 
@@ -181,4 +183,31 @@ crear cada request -->
   (@Body('name') name: string, @Body('price') price: number)
 
 <!-- Ahora crear el método POST para los demás controladores -->
+
+<!-- A continuación los métodos PUT y DELETE -->
+@Put(':id')
+update(@Param('id') id: number, @Body() payload: any) {
+  return {
+    id,
+    payload,
+  };
+}
+
+@Delete(':id')
+delete(@Param('id') id: number) {
+  return {
+    id,
+  };
+}
+
+<!-- SERVICIOS -->
+nest g s services/users --flat
+
+<!-- Antes de continuar vamos a crear una carpeta de entidades y ahí la entidad Products -> product.entity.ts -->
+
+
+<!-- Para usar los validadores en los pipelines, vamos a instalar unas dependencias con el servidor detenido -->
+npm i class-validator class-transformer
+
+y luego se ejecuta el servidor nuevamente para continuar.
 
